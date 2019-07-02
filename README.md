@@ -1,0 +1,1 @@
+# sitecore-spatial-geojson-polygons
