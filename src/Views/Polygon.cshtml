@@ -1,0 +1,41 @@
+﻿@using Newtonsoft.Json
+@using Sitecore.Mvc
+
+@model Sitecore.Spatial.GeoJson.Models.PolygonViewModel
+
+@* original source:
+    https://developers.google.com/maps/documentation/javascript/datalayer
+    https://developers.google.com/maps/documentation/javascript/importing_data
+    https://stackoverflow.com/a/42127338/991459
+*@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<div style="height:500px; width:100%;">
+    <div id="map" style="height: 100%; width:100%;"></div>
+</div>
+
+<script>
+
+    var polygons =  @Html.Raw(JsonConvert.SerializeObject(Model.PolygonsFeature));
+
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 4,
+            center: {lat: -28, lng: 137}
+        });
+
+        map.data.addGeoJson(polygons);
+
+        var bounds = new google.maps.LatLngBounds();
+        map.data.forEach(function(feature){
+            feature.getGeometry().forEachLatLng(function(latlng){
+                bounds.extend(latlng);
+            });
+        });
+
+        map.fitBounds(bounds);
+    }
+
+</script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=API_KEY_HERE&callback=initMap">
+</script>
+

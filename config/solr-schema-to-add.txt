@@ -1,0 +1,7 @@
+<!-- Spatial field types -->
+<fieldType name="geojson_rpt" class="solr.SpatialRecursivePrefixTreeFieldType" spatialContextFactory="JTS" geo="true" format="GeoJSON" autoIndex="true" validationRule="repairBuffer0" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" />
+<fieldType name="geojson_rptgeom" class="solr.RptWithGeometrySpatialField" spatialContextFactory="JTS" geo="true" format="GeoJSON" autoIndex="true" validationRule="repairBuffer0" distErrPct="0.15" maxDistErr="0.001" distanceUnits="kilometers"/>
+
+<!-- Dynamic fields mapped to spatial field types -->
+<dynamicField name="*_grpt" type="geojson_rpt" indexed="true" stored="true"/>
+<dynamicField name="*_grptgeom" type="geojson_rptgeom" indexed="true" stored="true"/>
